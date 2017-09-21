@@ -1,6 +1,17 @@
 # kho-muc-bia
 
-a Quỳnh: Bia, 1 thùng
-Thọ Võ: khô mực: 1 tạ; khô gà: 45kg
+## Bia
 
-.....................
+a Quỳnh: 1 thùng
+
+## Mồi
+
+### Khô mực
+
+Thọ Võ: 1 tạ
+
+### khô gà
+
+Thọ Võ: 45kg
+
+
