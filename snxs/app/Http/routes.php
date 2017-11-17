@@ -18,3 +18,5 @@ Route::get('get/once', function () {
     return view('once');
 });
 Route::post('once', 'OnceController@index');
+Route::get('caculate/{city}', 'CaculateController@index')
+    ->where('city', '[0-9]+');;

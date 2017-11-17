@@ -12,11 +12,13 @@
         <style>
             html, body {
                 height: 100%;
+                padding-left: 10%;
             }
 
             .container {
                 display: table-cell;
                 vertical-align: middle;
+                width: 80%;
             }
 
             .content {
