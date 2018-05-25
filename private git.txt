@@ -1,0 +1,8 @@
+/etc/httpd/conf\
+sudo service httpd restart
+
+eval `ssh-agent -s`
+ssh-add ~/.ssh/elpis
+
+http://bashalog.c-brains.jp/17/07/14-100000.php
+
