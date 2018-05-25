@@ -8,7 +8,7 @@
             display:none;
         }
     </style>
-    @extends('import.tg')
+    @extends('import.hcm0525')
 
 <a href="javascript:void(0);" onclick="return sendData();">SEND</a>
 <script>

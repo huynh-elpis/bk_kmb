@@ -18,7 +18,7 @@
             margin-bottom: 25px;
         }
     </style>
-	<h1>Full Caculation: {{ $latestDate }}</h1>
+	<h1>Head Caculation: {{ $latestDate }}</h1>
     <h2 class="mg-header" >
         @if(!empty($pre))
             <span>|</span>
@@ -51,7 +51,7 @@
                     @endforeach
                 </table>
             </div>
-            <?php /* <div class="pre-last right-col mg-25">
+            <?php /*<div class="pre-last right-col mg-25">
                 <div>Pre-RECENT:</div>
                 <table>
                     <tr>
@@ -65,7 +65,7 @@
                         </tr>
                     @endforeach
                 </table>
-            </div> */ ?>
+            </div>*/?>
             <div class="pre-last right-col mg-25">
                 <div>Pre-Longest:</div>
                 <table>
@@ -113,7 +113,7 @@
                     @endforeach
                 </table>
             </div>
-    <?php /* <div class="pre-last right-col mg-25">
+            <?php /*<div class="pre-last right-col mg-25">
                 <div>RECENT:</div>
                 <table>
                     <tr>
@@ -127,7 +127,7 @@
                         </tr>
                     @endforeach
                 </table>
-            </div> */ ?>
+            </div>*/ ?>
             <div class="last right-col mg-25">
                 <div>LAST Hundred:</div>
                 <table>
@@ -143,7 +143,7 @@
                     @endforeach
                 </table>
             </div>
-        <div class="last right-col mg-25">
+            <div class="last right-col mg-25">
                 <div>Longest:</div>
                 <table>
                     <tr>
@@ -158,6 +158,8 @@
                     @endforeach
                 </table>
             </div>
+        </div>
+        <div>
         </div>
     </div>
 @endsection
