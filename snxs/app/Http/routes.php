@@ -18,7 +18,11 @@ Route::get('get/once', function () {
     return view('once');
 });
 Route::post('once', 'OnceController@index');
-Route::get('caculate/{city}', 'CaculateController@index')
+Route::get('caculate/equaly/{city}', 'CaculateController@index')
     ->where('city', '[0-9]+');
-Route::get('caculate/head-only/{city}', 'CaculateController@headOnly')
-    ->where('city', '[0-9]+');;
+Route::get('caculate/equaly/head-only/{city}', 'CaculateController@headOnly')
+    ->where('city', '[0-9]+');
+Route::get('record/{city}', 'RecordController@index')
+    ->where('city', '[0-9]+');
+Route::get('update', 'UpdateController@index');
+Route::post('update', 'UpdateController@index');

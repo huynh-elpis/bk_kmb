@@ -24,7 +24,7 @@ class OnceController extends Controller
             foreach($data as $item){
                 $nDate = explode('-', $item['date']);
                 $item['date'] = $nDate[2] . '-' . $nDate[1] . '-' . $nDate[0];
-				$item['city'] = 1;
+				$item['city'] = 3;
 				DB::table('xs')->insert($item);
             }
         }

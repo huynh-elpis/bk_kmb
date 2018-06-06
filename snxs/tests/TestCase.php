@@ -1,7 +1,13 @@
 <?php
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+namespace Tests;
+
+use InvalidArgumentException;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+
+abstract class TestCase extends BaseTestCase
 {
+  use CreatesApplication;
     /**
      * The base URL to use while testing the application.
      *
@@ -13,7 +19,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      * Creates the application.
      *
      * @return \Illuminate\Foundation\Application
-     */
+     *
     public function createApplication()
     {
         $app = require __DIR__.'/../bootstrap/app.php';
@@ -22,4 +28,5 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+    */
 }

@@ -17,6 +17,9 @@
             margin-top: 30px;
             margin-bottom: 25px;
         }
+        td:first-child {
+            background-color: #ccc;
+        }
     </style>
 	<h1>Full Caculation: {{ $latestDate }}</h1>
     <h2 class="mg-header" >
