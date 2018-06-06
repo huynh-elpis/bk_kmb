@@ -10,7 +10,7 @@
             margin-bottom: 25px;
         }
     </style>
-    <h2 class="mg-header" >Today:</h2>
+    <h2 class="mg-header" >Today ({{date('D',time())}}):</h2>
     <div>
         <table>
             <thead>
@@ -18,6 +18,7 @@
                     <th>ID</th>
                     <th>Code</th>
                     <th>lastest update</th>
+                    <th>lastest record</th>
                     <th>Action</th>
                     <th>Caculate</th>
                 </tr>
@@ -28,6 +29,7 @@
                     <td>{{ $item['id']?$item['id']:'' }}</td>
                     <td>{{$item['code']}}</td>
                     <td>{{$item['lastest']}}</td>
+                    <td>{{$item['lastest_record']}}</td>
                     <td>
                         <a href="javascript:void(0);" onclick="return sendData({{ $item['id']?$item['id']:'' }});">SEND</a>
                     </td>
@@ -37,7 +39,7 @@
             </tbody>
         </table>
     </div>
-    <h2 class="mg-header" >Tomorrow:</h2>
+    <h2 class="mg-header" >Tomorrow ({{date('D',strtotime('tomorrow'))}}):</h2>
     <div>
         <table>
             <thead>
@@ -45,6 +47,7 @@
                 <th>ID</th>
                 <th>Code</th>
                 <th>lastest update</th>
+                <th>lastest record</th>
                 <th>Action</th>
                 <th>Caculate</th>
             </tr>
@@ -55,6 +58,7 @@
                     <td>{{ $item['id']?$item['id']:'' }}</td>
                     <td>{{$item['code']}}</td>
                     <td>{{$item['lastest']}}</td>
+                    <td>{{$item['lastest_record']}}</td>
                     <td><a href="javascript:void(0);" onclick="return sendData({{ $item['id']?$item['id']:'' }});">SEND</a></td>
                     <td><a href="/caculate/equaly/{{ $item['id']?$item['id']:'' }}">Caculate</a></td>
                 </tr>

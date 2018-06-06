@@ -79,10 +79,13 @@ class UpdateController extends Controller
             $code = $city[$id];
             $lastestUpdate = DB::table('xs')->where('city',$id)
                 ->where('avail_flg','=','1')->orderBy('date','desc')->first()->date;
+            $lastestRecord = DB::table('record')->where('city',$id)
+                ->where('avail_flg','=','1')->where('caculate_date','=',$lastestUpdate)->first();
             $todayData[] = [
                 'id' => $id,
                 'code' => $code['code'],
-                'lastest' => $lastestUpdate . '(' . date('D',time()) . ')'
+                'lastest' => $lastestUpdate,
+                'lastest_record' => $lastestRecord ? $lastestRecord->value : ''
             ];
         }
         $tomorrowData = [];
@@ -90,10 +93,13 @@ class UpdateController extends Controller
             $code = $city[$id];
             $lastestUpdate = DB::table('xs')->where('city',$id)
                 ->where('avail_flg','=','1')->orderBy('date','desc')->first()->date;
+            $lastestRecord = DB::table('record')->where('city',$id)
+                ->where('avail_flg','=','1')->where('caculate_date','=',$lastestUpdate)->first();
             $tomorrowData[] = [
                 'id' => $id,
                 'code' => $code['code'],
-                'lastest' => $lastestUpdate . '(' . date('D',strtotime('tomorrow')) . ')'
+                'lastest' => $lastestUpdate,
+                'lastest_record' => $lastestRecord ? $lastestRecord->value : ''
             ];
         }
         //FeedReader::

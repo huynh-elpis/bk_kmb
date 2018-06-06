@@ -45,15 +45,34 @@ class CaculateRecord extends Command
         $currentLongest = $this->caculateCurrentLongest($city);
         echo "\r\n Result:";
         echo "\r\n";
+        $newCaculate = [];
         foreach($recordList as $key => $val){
             if ($currentLongest[$key] >= $val){
                 if($currentLongest[$key] > $val){
+                    $newCaculate[] = '(' . $key . ')';
                     echo '|' . $key . '|';
                 }else{
+                    $newCaculate[] = $key;
                     echo $key;
                 }
                 echo "\r\n";
             }
+        }
+        $fromDay = DB::table('xs')->where('city',$city)
+            ->where('avail_flg','=','1')
+            ->orderBy('date','desc')->first()->date;
+        $checkExists = DB::table('record')->where('city',$city)
+            ->where('avail_flg','=','1')
+            ->where('caculate_date','=',$fromDay)->count();
+        if($checkExists > 0){
+
+        }else{
+            $newRecord = [
+                'city' => $city,
+                'caculate_date' => $fromDay,
+                'value' => implode("|",$newCaculate)
+            ];
+            DB::table('record')->insert($newRecord);
         }
 
         //
