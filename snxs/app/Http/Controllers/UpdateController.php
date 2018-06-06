@@ -49,19 +49,25 @@ class UpdateController extends Controller
 
                     } else {
                         $description = $item->get_description();
+                        $description = str_replace(chr(10),' ',$description);
                         $descriptions = explode(' ', $description);
-                        $description[33] = substr($description[33],0,3);
-                        $kqValid = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,34];
-                        $kq = [];
-                        foreach($kqValid as $v) $kq[] = $descriptions[$v];
 
-                        foreach($kq as $newVal){
-                            $newItem = [
-                                'city' => $data['id'],
-                                'date' => $itemDate,
-                                'value' => $newVal
-                            ];
-                            DB::table('xs')->insert($newItem);
+                        $descriptions[33] = substr($descriptions[33],0,3);
+                        if(count($descriptions) < 35){
+                            echo "data is lack: " . $description;
+                        }else{
+                            $kqValid = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,34];
+                            $kq = [];
+                            foreach($kqValid as $v) $kq[] = $descriptions[$v];
+
+                            foreach($kq as $newVal){
+                                $newItem = [
+                                    'city' => $data['id'],
+                                    'date' => $itemDate,
+                                    'value' => $newVal
+                                ];
+                                DB::table('xs')->insert($newItem);
+                            }
                         }
                     }
                 }
@@ -72,8 +78,7 @@ class UpdateController extends Controller
         foreach($todaySchedule as $id){
             $code = $city[$id];
             $lastestUpdate = DB::table('xs')->where('city',$id)
-                ->where('avail_flg','=','1')->first()->date;
-            //$rss = (new FeedReader)->read($rssRoot . $cityToday['rss']);
+                ->where('avail_flg','=','1')->orderBy('date','desc')->first()->date;
             $todayData[] = [
                 'id' => $id,
                 'code' => $code['code'],
@@ -84,8 +89,7 @@ class UpdateController extends Controller
         foreach($tomorrowSchedule as $id){
             $code = $city[$id];
             $lastestUpdate = DB::table('xs')->where('city',$id)
-                ->where('avail_flg','=','1')->first()->date;
-            //'rss' => (new FeedReader)->read($rssRoot . $cityToday['rss'])
+                ->where('avail_flg','=','1')->orderBy('date','desc')->first()->date;
             $tomorrowData[] = [
                 'id' => $id,
                 'code' => $code['code'],
