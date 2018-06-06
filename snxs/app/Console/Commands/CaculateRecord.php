@@ -41,23 +41,28 @@ class CaculateRecord extends Command
     {
         $city = $this->argument('city');
         $recordList = $this->caculateRecord($city);
+        $maxRecord = max($recordList);
         echo "\r\n Longest....";
         $currentLongest = $this->caculateCurrentLongest($city);
         echo "\r\n Result:";
         echo "\r\n";
         $newCaculate = [];
+        // () mean over record, * mean over max record of all.
         foreach($recordList as $key => $val){
             if ($currentLongest[$key] >= $val){
+                $max_flg = '';
+                if($currentLongest[$key] >= $maxRecord) $max_flg = '*';
                 if($currentLongest[$key] > $val){
-                    $newCaculate[] = '(' . $key . ')';
+                    $newCaculate[] = '(' . $max_flg . $key . ':' . $val . ')';
                     echo '|' . $key . '|';
                 }else{
-                    $newCaculate[] = $key;
-                    echo $key;
+                    $newCaculate[] = $max_flg . $key;
+                    echo $key . ':' . $val;
                 }
                 echo "\r\n";
             }
         }
+        echo "max: " . $maxRecord;
         $fromDay = DB::table('xs')->where('city',$city)
             ->where('avail_flg','=','1')
             ->orderBy('date','desc')->first()->date;
@@ -70,7 +75,8 @@ class CaculateRecord extends Command
             $newRecord = [
                 'city' => $city,
                 'caculate_date' => $fromDay,
-                'value' => implode("|",$newCaculate)
+                'value' => implode("|",$newCaculate),
+                'max_record' => $maxRecord
             ];
             DB::table('record')->insert($newRecord);
         }
