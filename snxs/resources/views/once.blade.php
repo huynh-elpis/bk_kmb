@@ -8,7 +8,7 @@
             display:none;
         }
     </style>
-    @extends('import.dn0606')
+    @extends('import.ldg')
 
 <a href="javascript:void(0);" onclick="return sendData();">SEND</a>
 <script>

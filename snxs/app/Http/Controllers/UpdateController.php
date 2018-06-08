@@ -17,14 +17,23 @@ class UpdateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $dt="")
     {
         $city = config('master.city');
         $schedule = config('master.schedule');
         $rssRoot = config('master.rss_root');
 
-        $todayWeek = date('w', time());
-        $tomorrowWeek = date('w', strtotime('tomorrow'));
+        //$yesterdayWeek = date('w', strtotime('yesterday'));
+        //$todayWeek = date('w', time());
+        //$tomorrowWeek = date('w', strtotime('tomorrow'));
+        if(empty($dt)){
+            $dt = date('Y-m-d');
+        }
+        $yesterdayWeek = date('w', strtotime('-1 days', strtotime($dt)));
+        $todayWeek = date('w', strtotime($dt));
+        $tomorrowWeek = date('w', strtotime('+1 days', strtotime($dt)));
+
+        $yesterdaySchedule = $schedule[$yesterdayWeek];
         $todaySchedule = $schedule[$todayWeek];
         $tomorrowSchedule = $schedule[$tomorrowWeek];
 
@@ -74,11 +83,29 @@ class UpdateController extends Controller
             }
         }
 
+        $yesterdayData = [];
+        foreach($yesterdaySchedule as $id){
+            $code = $city[$id];
+            $lastestUpdate = DB::table('xs')->where('city',$id)
+                ->where('avail_flg','=','1')->orderBy('date','desc')->first();
+            if(!$lastestUpdate) continue;
+            $lastestUpdate = $lastestUpdate->date;
+            $lastestRecord = DB::table('record')->where('city',$id)
+                ->where('avail_flg','=','1')->where('caculate_date','=',$lastestUpdate)->first();
+            $yesterdayData[] = [
+                'id' => $id,
+                'code' => $code['code'],
+                'lastest' => $lastestUpdate,
+                'lastest_record' => $lastestRecord ? $lastestRecord->value : ''
+            ];
+        }
         $todayData = [];
         foreach($todaySchedule as $id){
             $code = $city[$id];
             $lastestUpdate = DB::table('xs')->where('city',$id)
-                ->where('avail_flg','=','1')->orderBy('date','desc')->first()->date;
+                ->where('avail_flg','=','1')->orderBy('date','desc')->first();
+            if(!$lastestUpdate) continue;
+            $lastestUpdate = $lastestUpdate->date;
             $lastestRecord = DB::table('record')->where('city',$id)
                 ->where('avail_flg','=','1')->where('caculate_date','=',$lastestUpdate)->first();
             $todayData[] = [
@@ -92,7 +119,9 @@ class UpdateController extends Controller
         foreach($tomorrowSchedule as $id){
             $code = $city[$id];
             $lastestUpdate = DB::table('xs')->where('city',$id)
-                ->where('avail_flg','=','1')->orderBy('date','desc')->first()->date;
+                ->where('avail_flg','=','1')->orderBy('date','desc')->first();
+            if(!$lastestUpdate) continue;
+            $lastestUpdate = $lastestUpdate->date;
             $lastestRecord = DB::table('record')->where('city',$id)
                 ->where('avail_flg','=','1')->where('caculate_date','=',$lastestUpdate)->first();
             $tomorrowData[] = [
@@ -104,7 +133,7 @@ class UpdateController extends Controller
         }
         //FeedReader::
         return View("update", compact([
-            'todayData','tomorrowData'
+            'yesterdayData','todayData','tomorrowData','dt'
         ]));
     }
 

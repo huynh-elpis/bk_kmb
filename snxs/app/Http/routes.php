@@ -24,5 +24,7 @@ Route::get('caculate/equaly/head-only/{city}', 'CaculateController@headOnly')
     ->where('city', '[0-9]+');
 Route::get('record/{city}', 'RecordController@index')
     ->where('city', '[0-9]+');
+Route::get('update/{dt}', 'UpdateController@index');
 Route::get('update', 'UpdateController@index');
+Route::post('update/{dt}', 'UpdateController@index');
 Route::post('update', 'UpdateController@index');

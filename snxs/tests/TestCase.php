@@ -4,10 +4,11 @@ namespace Tests;
 
 use InvalidArgumentException;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Contracts\Console\Kernel;
 
 abstract class TestCase extends BaseTestCase
 {
-  use CreatesApplication;
+  //use CreatesApplication;
     /**
      * The base URL to use while testing the application.
      *
@@ -19,14 +20,14 @@ abstract class TestCase extends BaseTestCase
      * Creates the application.
      *
      * @return \Illuminate\Foundation\Application
-     *
+     */
     public function createApplication()
     {
         $app = require __DIR__.'/../bootstrap/app.php';
 
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        $app->make(Kernel::class)->bootstrap();
 
         return $app;
     }
-    */
+
 }

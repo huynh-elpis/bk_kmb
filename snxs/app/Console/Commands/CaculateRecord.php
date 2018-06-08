@@ -53,11 +53,11 @@ class CaculateRecord extends Command
                 $max_flg = '';
                 if($currentLongest[$key] >= $maxRecord) $max_flg = '*';
                 if($currentLongest[$key] > $val){
-                    $newCaculate[] = '(' . $max_flg . $key . ':' . $val . ')';
-                    echo '|' . $key . '|';
+                    $newCaculate[] = '(' . $max_flg . $key . ':' . $currentLongest[$key] . '/' . $maxRecord . ')';
+                    echo '|' . $key . ':' . $currentLongest[$key] . '|';
                 }else{
                     $newCaculate[] = $max_flg . $key;
-                    echo $key . ':' . $val;
+                    echo $key . ':' . $currentLongest[$key];
                 }
                 echo "\r\n";
             }
